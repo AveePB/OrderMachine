@@ -1,7 +1,7 @@
 package com.mcdonalds.ordermachine;
 
-import com.mcdonalds.ordermachine.model.Product;
-import com.mcdonalds.ordermachine.model.ProductType;
+import com.mcdonalds.ordermachine.model.product.Product;
+import com.mcdonalds.ordermachine.model.product.ProductType;
 
 import org.assertj.core.util.Arrays;
 
@@ -29,6 +29,7 @@ public class ProductJsonTests {
 
     private Product[] products;
 
+
     @BeforeEach
     void setUp() {
         this.products = Arrays.array(
@@ -39,9 +40,9 @@ public class ProductJsonTests {
         );
     }
 
+
     @Test
     void productSerializationTest() throws IOException {
-        Product product = this.products[0];
         String expected = """
                 {
                     "id": 1,
@@ -53,28 +54,29 @@ public class ProductJsonTests {
                 """;
 
         //JSON FORM
-        assertThat(this.json.write(product)).isStrictlyEqualToJson(expected);
+        assertThat(this.json.write(this.products[0])).isStrictlyEqualToJson(expected);
 
         //Id
-        assertThat(this.json.write(product)).hasJsonPathNumberValue("@.id");
-        assertThat(this.json.write(product)).extractingJsonPathNumberValue("@.id").isEqualTo(1);
+        assertThat(this.json.write(this.products[0])).hasJsonPathNumberValue("@.id");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathNumberValue("@.id").isEqualTo(1);
 
         //Receipt Code
-        assertThat(this.json.write(product)).hasJsonPathStringValue("@.receiptCode");
-        assertThat(this.json.write(product)).extractingJsonPathStringValue("@.receiptCode").isEqualTo("#101");
+        assertThat(this.json.write(this.products[0])).hasJsonPathStringValue("@.receiptCode");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathStringValue("@.receiptCode").isEqualTo("#101");
 
         //Name
-        assertThat(this.json.write(product)).hasJsonPathStringValue("@.name");
-        assertThat(this.json.write(product)).extractingJsonPathStringValue("@.name").isEqualTo("Big Mac®");
+        assertThat(this.json.write(this.products[0])).hasJsonPathStringValue("@.name");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathStringValue("@.name").isEqualTo("Big Mac®");
 
         //Price
-        assertThat(this.json.write(product)).hasJsonPathNumberValue("@.price");
-        assertThat(this.json.write(product)).extractingJsonPathNumberValue("@.price").isEqualTo(39.0);
+        assertThat(this.json.write(this.products[0])).hasJsonPathNumberValue("@.price");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathNumberValue("@.price").isEqualTo(39.0);
 
         //Type
-        assertThat(this.json.write(product)).hasJsonPathValue("@.type");
-        assertThat(this.json.write(product)).extractingJsonPathStringValue("FRIES");
+        assertThat(this.json.write(this.products[0])).hasJsonPathValue("@.type");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathStringValue("FRIES");
     }
+
 
     @Test
     void productDeserializationTest() throws IOException {
@@ -89,6 +91,7 @@ public class ProductJsonTests {
                 """;
 
         Product product = this.json.parseObject(expected);
+        assertThat(product).isEqualTo(this.products[0]);
 
         //Id
         assertThat(product.getId()).isEqualTo(this.products[0].getId());
@@ -106,6 +109,7 @@ public class ProductJsonTests {
         assertThat(product.getType()).isEqualTo(this.products[0].getType());
     }
 
+
     @Test
     void productListSerializationTest() throws IOException {
         String expected = """
@@ -120,6 +124,7 @@ public class ProductJsonTests {
         assertThat(this.jsonArr.write(this.products)).isStrictlyEqualToJson(expected);
     }
 
+
     @Test
     void productListDeserializationTest() throws IOException {
         String expected = """
@@ -131,6 +136,6 @@ public class ProductJsonTests {
                 ]
                 """;
 
-        assertThat(this.jsonArr.parseObject(expected).length).isEqualTo(this.products.length);
+        assertThat(this.jsonArr.parseObject(expected)).isEqualTo(this.products);
     }
 }

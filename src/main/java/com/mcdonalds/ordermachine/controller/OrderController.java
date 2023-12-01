@@ -1,7 +1,7 @@
 package com.mcdonalds.ordermachine.controller;
 
-import com.mcdonalds.ordermachine.model.Product;
-import com.mcdonalds.ordermachine.model.ProductType;
+import com.mcdonalds.ordermachine.model.product.Product;
+import com.mcdonalds.ordermachine.model.product.ProductType;
 import com.mcdonalds.ordermachine.repository.OrderedProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class OrderController {
     private final OrderedProductRepository orderedProductRepository;
 
 
-    @Autowired //Constructor
+    @Autowired //Constructor with dependency injection.
     private OrderController(OrderedProductRepository orderedProductRepository) {
         this.orderedProductRepository = orderedProductRepository;
     }
@@ -66,6 +66,7 @@ public class OrderController {
                     pageable.getPageSize(),
                     Sort.Direction.ASC
                 ));
+
         return ResponseEntity.ok(page.getContent());
     }
 }
