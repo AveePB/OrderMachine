@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductJsonTests {
     //Required objects:
     @Autowired
-    private JacksonTester<Product> json = null;
+    private final JacksonTester<Product> json = null;
 
     @Autowired
-    private JacksonTester<Product[]> jsonArr = null;
+    private final JacksonTester<Product[]> jsonArr = null;
 
     private Product[] products;
 
@@ -33,10 +33,10 @@ public class ProductJsonTests {
     @BeforeEach
     void setUp() {
         this.products = Arrays.array(
-                new Product(1L, "#101", "Big Mac®", 39.0, ProductType.BURGER),
-                new Product(2L, "#101", "Big Mac®", 39.0, ProductType.BURGER),
-                new Product(3L, "#102", "Quarter Pounder®* with Cheese", 29.0, ProductType.BURGER),
-                new Product(4L, "#102", "World Famous Fries®", 10.0, ProductType.FRIES)
+                new Product(1L, "101", "Big Mac®", 39.0, ProductType.BURGER),
+                new Product(2L, "101", "Big Mac®", 39.0, ProductType.BURGER),
+                new Product(3L, "102", "Quarter Pounder®* with Cheese", 29.0, ProductType.BURGER),
+                new Product(4L, "102", "World Famous Fries®", 10.0, ProductType.FRIES)
         );
     }
 
@@ -46,7 +46,7 @@ public class ProductJsonTests {
         String expected = """
                 {
                     "id": 1,
-                    "receiptCode": "#101",
+                    "receiptCode": "101",
                     "name": "Big Mac®",
                     "price": 39.0,
                     "type": "BURGER"
@@ -62,7 +62,7 @@ public class ProductJsonTests {
 
         //Receipt Code
         assertThat(this.json.write(this.products[0])).hasJsonPathStringValue("@.receiptCode");
-        assertThat(this.json.write(this.products[0])).extractingJsonPathStringValue("@.receiptCode").isEqualTo("#101");
+        assertThat(this.json.write(this.products[0])).extractingJsonPathStringValue("@.receiptCode").isEqualTo("101");
 
         //Name
         assertThat(this.json.write(this.products[0])).hasJsonPathStringValue("@.name");
@@ -83,7 +83,7 @@ public class ProductJsonTests {
         String expected = """
                 {
                     "id": 1,
-                    "receiptCode": "#101",
+                    "receiptCode": "101",
                     "name": "Big Mac®",
                     "price": 39.0,
                     "type": "BURGER"
@@ -114,10 +114,10 @@ public class ProductJsonTests {
     void productListSerializationTest() throws IOException {
         String expected = """
                 [
-                    {"id": 1, "receiptCode": "#101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
-                    {"id": 2, "receiptCode": "#101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
-                    {"id": 3, "receiptCode": "#102", "name": "Quarter Pounder®* with Cheese", "price": 29.0, "type": "BURGER"},
-                    {"id": 4, "receiptCode": "#102", "name": "World Famous Fries®", "price": 10.0, "type": "FRIES"}
+                    {"id": 1, "receiptCode": "101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
+                    {"id": 2, "receiptCode": "101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
+                    {"id": 3, "receiptCode": "102", "name": "Quarter Pounder®* with Cheese", "price": 29.0, "type": "BURGER"},
+                    {"id": 4, "receiptCode": "102", "name": "World Famous Fries®", "price": 10.0, "type": "FRIES"}
                 ]
                 """;
 
@@ -129,10 +129,10 @@ public class ProductJsonTests {
     void productListDeserializationTest() throws IOException {
         String expected = """
                 [
-                    {"id": 1, "receiptCode": "#101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
-                    {"id": 2, "receiptCode": "#101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
-                    {"id": 3, "receiptCode": "#102", "name": "Quarter Pounder®* with Cheese", "price": 29.0, "type": "BURGER"},
-                    {"id": 4, "receiptCode": "#102", "name": "World Famous Fries®", "price": 10.0, "type": "FRIES"}
+                    {"id": 1, "receiptCode": "101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
+                    {"id": 2, "receiptCode": "101", "name": "Big Mac®", "price": 39.0, "type": "BURGER"},
+                    {"id": 3, "receiptCode": "102", "name": "Quarter Pounder®* with Cheese", "price": 29.0, "type": "BURGER"},
+                    {"id": 4, "receiptCode": "102", "name": "World Famous Fries®", "price": 10.0, "type": "FRIES"}
                 ]
                 """;
 
