@@ -61,7 +61,21 @@ methods, you need to tell Spring to route requests to the method only on specifi
 
 ### POST Method <a name="post_method"></a>
 ```
-    ...
+    @PostMapping
+    private ResponseEntity<String> createProduct(@RequestBody Product product) {
+        Product newProduct = new Product(null, product.getReceiptCode(), product.getName(), product.getPrice(), product.getType());
+
+        //Adds resource to database.
+        Product createdProduct = this.orderedProductRepository.saveAndFlush(newProduct);
+
+        //Creates resource location.
+        URI location = ServletUriComponentsBuilder.
+                fromCurrentRequest().path("/{id}").
+                buildAndExpand(createdProduct.getId()).
+                toUri();
+
+        return ResponseEntity.created(location).build();
+    }
 ```
 
 ### PUT Method <a name="put_method"></a>
