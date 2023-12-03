@@ -31,6 +31,7 @@ These are the four basic operations that can be performed on objects in a data s
 specific guidelines for implementing each one.
 
 | Operation | HTTP Method | Response Status |
+|-----------|-------------|-----------------|
 | Read      | GET         | 200 (OK)        |
 | Create    | POST        | 201 (CREATED)   |
 | Update    | PUT         | 204 (NO DATA)   |
