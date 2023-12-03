@@ -1,4 +1,4 @@
-#McDonald's Order Machine
+# McDonald's Order Machine
 
 ## Introduction
 
