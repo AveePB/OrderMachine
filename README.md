@@ -9,8 +9,6 @@
     - [POST Method](#post_method)
     - [PUT Method](#put_method)
     - [DELETE Method](#delete_method)
-5. [Authentication](#authentication)
-
 
 ## Introduction <a name="introduction"></a>
 Welcome to the Spring Boot McDonald's Order Machine project! In this endeavor, we delve into the realm of 
@@ -87,6 +85,3 @@ methods, you need to tell Spring to route requests to the method only on specifi
 ```
     ...
 ```
-
-## Authentication <a name="authentication"></a>
-...
