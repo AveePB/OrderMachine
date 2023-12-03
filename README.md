@@ -4,7 +4,7 @@
 1. [Introduction](#introduction)
 2. [Representational State Transfer "REST"](#rest)
 3. [Create, Read, Update and Delete "CRUD"](#crud)
-5. [RESTful Endpoints](#restful_endpoints)
+5. [Spring Web Controllers](#spring_web_controllers)
     - [GET Method](#get_method)
     - [POST Method](#post_method)
     - [PUT Method](#put_method)
@@ -37,7 +37,27 @@ specific guidelines for implementing each one.
 | Update    | PUT         | 204 (NO DATA)   |
 | Delete    | DELETE      | 204 (NO DATA)   |
 
-## RESTful Endpoints <a name="restful_endpoints"></a>
-
+## Spring Web Controllers <a name="spring_web_controllers"></a>
+In Spring Web, Requests are handled by Controllers. The Controller gets injected into Spring Web, which routes API
+requests (handled by the Controller) to the correct method. Since REST says that endpoints should use the HTTP 
+methods, you need to tell Spring to route requests to the method only on specified requests
 
 ### GET Method <a name="get_method"></a>
+```
+    ...
+```
+
+### POST Method <a name="post_method"></a>
+```
+    ...
+```
+
+### PUT Method <a name="put_method"></a>
+```
+    ...
+```
+
+### DELETE Method <a name="delete_method"></a>
+```
+    ...
+```
