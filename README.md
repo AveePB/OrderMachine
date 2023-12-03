@@ -1,4 +1,6 @@
-# Introduction to Spring Boot McDonald's Order Machine Project
+#McDonald's Order Machine
+
+## Introduction
 
 Welcome to the Spring Boot McDonald's Order Machine project! In this endeavor, we delve into the realm of 
 software development using Spring Boot to create a streamlined and efficient ordering system inspired by 
