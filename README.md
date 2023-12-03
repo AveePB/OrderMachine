@@ -46,7 +46,17 @@ methods, you need to tell Spring to route requests to the method only on specifi
 
 ### GET Method <a name="get_method"></a>
 ```
-    ...
+    @GetMapping("/id={requestedId}")
+    private ResponseEntity<Product> findById(@PathVariable Long requestedId) {
+        //Accesses the resource from database.
+        Optional<Product> productOptional = this.orderedProductRepository.findById(requestedId);
+
+        //Checks if resource has been found.
+        if (productOptional.isPresent())
+            return ResponseEntity.ok(productOptional.get());
+
+        return ResponseEntity.notFound().build();
+    }
 ```
 
 ### POST Method <a name="post_method"></a>
