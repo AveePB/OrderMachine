@@ -1,5 +1,13 @@
 # McDonald's Order Machine
 
+## Table of contents
+1. [Introduction](#introduction)
+2. [RESTful Endpoints](#restful_endpoints)
+  2.1. [GET Method](#get_method)
+  2.2. [POST Method](#post_method)
+  2.3. [PUT Method](#put_method)
+  2.4. [DELETE Method](#delete_method)
+
 ## Introduction
 
 Welcome to the Spring Boot McDonald's Order Machine project! In this endeavor, we delve into the realm of 
