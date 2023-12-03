@@ -165,4 +165,15 @@ class OrderMachineApplicationTests {
 		int productCount = documentContext.read("$.length()");
 		assertThat(productCount).isEqualTo(0);
 	}
+
+
+	@Test
+	void shouldCreateANewProduct() {
+		Product newOrderedProduct = new Product(null, "#101", "Marek Lumberjack", 31.3, ProductType.BURGER);
+		ResponseEntity<String> response = this.restTemplate.postForEntity("/orders", newOrderedProduct, String.class);
+
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+		assertThat(this.orderedProductRepository.count()).isEqualTo(1);
+	}
+
 }

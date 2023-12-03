@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +32,10 @@ public class OrderController {
 
     @GetMapping("/id={requestedId}")
     private ResponseEntity<Product> findById(@PathVariable Long requestedId) {
+        //Accesses the resource from database.
         Optional<Product> productOptional = this.orderedProductRepository.findById(requestedId);
 
+        //Checks if resource has been found.
         if (productOptional.isPresent())
             return ResponseEntity.ok(productOptional.get());
 
@@ -43,6 +45,7 @@ public class OrderController {
 
     @GetMapping("/receiptCode={requestedReceiptCode}")
     private List<Product> findAllByReceiptCode(@PathVariable String requestedReceiptCode) {
+
         return this.orderedProductRepository.findByReceiptCode(requestedReceiptCode);
     }
 
@@ -51,5 +54,22 @@ public class OrderController {
     private List<Product> findAllByType(@PathVariable ProductType requestedType) {
 
         return this.orderedProductRepository.findByType(requestedType);
+    }
+
+
+    @PostMapping
+    private ResponseEntity<String> createProduct(@RequestBody Product product) {
+        Product newProduct = new Product(null, product.getReceiptCode(), product.getName(), product.getPrice(), product.getType());
+
+        //Adds resource to database.
+        Product createdProduct = this.orderedProductRepository.saveAndFlush(newProduct);
+
+        //Creates resource location.
+        URI location = ServletUriComponentsBuilder.
+                fromCurrentRequest().path("/{id}").
+                buildAndExpand(createdProduct.getId()).
+                toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
