@@ -4,11 +4,13 @@
 1. [Introduction](#introduction)
 2. [Representational State Transfer "REST"](#rest)
 3. [Create, Read, Update and Delete "CRUD"](#crud)
-5. [Spring Web Controllers](#spring_web_controllers)
+4. [Spring Web Controllers](#spring_web_controllers)
     - [GET Method](#get_method)
     - [POST Method](#post_method)
     - [PUT Method](#put_method)
     - [DELETE Method](#delete_method)
+5. [Authentication](#authentication)
+
 
 ## Introduction <a name="introduction"></a>
 Welcome to the Spring Boot McDonald's Order Machine project! In this endeavor, we delve into the realm of 
@@ -61,3 +63,6 @@ methods, you need to tell Spring to route requests to the method only on specifi
 ```
     ...
 ```
+
+## Authentication <a name="authentication"></a>
+...
