@@ -2,7 +2,9 @@
 
 ## Table of contents
 1. [Introduction](#introduction)
-2. [RESTful Endpoints](#restful_endpoints)
+2. [Representational State Transfer "REST"](#rest)
+3. [Create, Read, Update and Delete "CRUD"](#crud)
+5. [RESTful Endpoints](#restful_endpoints)
     - [GET Method](#get_method)
     - [POST Method](#post_method)
     - [PUT Method](#put_method)
@@ -17,15 +19,24 @@ This project serves as an immersive learning experience, providing a platform to
 in software development. Through the utilization of Spring Boot, a powerful framework for building Java-based 
 applications, we aim to craft a functional and user-friendly ordering system.
 
-## RESTful Endpoints <a name="restful_endpoints"></a>
+## Representational State Transfer "REST" <a name="rest"></a>
 Representational State Transfer (REST) is an architectural style that defines a set of constraints to be used 
 for creating web services. REST API is a way of accessing web services in a simple and flexible way without
-having any processing.
+having any processing. Web application's data might be accessed via an API, and are often stored in a persistent 
+data store, such as a database.
 
-The software industry has adopted several patterns for capturing agreed upon API behavior in documentation and 
-code. These agreements are often called "contracts". We define an API contract as a formal agreement between 
-a software provider and a consumer that abstractly communicates how to interact with each other. This contract 
-defines how API providers and consumers interact, what data exchanges looks like, and how to communicate success 
-and failure cases.
+## Create, Read, Update and Delete "CRUD" <a name="crud"></a>
+A frequently mentioned concept when speaking about REST is CRUD. CRUD stands for “Create, Read, Update, and Delete”.
+These are the four basic operations that can be performed on objects in a data store. We’ll learn that REST has 
+specific guidelines for implementing each one.
+
+| Operation | HTTP Method | Response Status |
+| Read      | GET         | 200 (OK)        |
+| Create    | POST        | 201 (CREATED)   |
+| Update    | PUT         | 204 (NO DATA)   |
+| Delete    | DELETE      | 204 (NO DATA)   |
+
+## RESTful Endpoints <a name="restful_endpoints"></a>
+
 
 ### GET Method <a name="get_method"></a>
