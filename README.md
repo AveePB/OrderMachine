@@ -3,10 +3,10 @@
 ## Table of contents
 1. [Introduction](#introduction)
 2. [RESTful Endpoints](#restful_endpoints)
-    1. [GET Method](#get_method)
-    2. [POST Method](#post_method)
-    3. [PUT Method](#put_method)
-    4. [DELETE Method](#delete_method)
+    - [GET Method](#get_method)
+    - [POST Method](#post_method)
+    - [PUT Method](#put_method)
+    - [DELETE Method](#delete_method)
 
 ## Introduction
 
