@@ -1,3 +1,9 @@
-# order-machine
-Spring boot is a tool set used to create complex web apps, microservices and more. 
-This project is created in order to acquire the fundamental backend knowledge.
+# Introduction to Spring Boot McDonald's Order Machine Project
+
+Welcome to the Spring Boot McDonald's Order Machine project! In this endeavor, we delve into the realm of 
+software development using Spring Boot to create a streamlined and efficient ordering system inspired by 
+the world-renowned McDonald's.
+
+This project serves as an immersive learning experience, providing a platform to grasp fundamental skills 
+in software development. Through the utilization of Spring Boot, a powerful framework for building Java-based 
+applications, we aim to craft a functional and user-friendly ordering system.
