@@ -95,5 +95,10 @@ methods, you need to tell Spring to route requests to the method only on specifi
 
 ### DELETE Method <a name="delete_method"></a>
 ```
-    ...
+    @DeleteMapping("/receiptCode={requestedReceiptCode}")
+    private ResponseEntity<String> deleteProductsByReceiptCode(@PathVariable String requestedReceiptCode) {
+        this.orderedProductRepository.deleteAllByReceiptCode(requestedReceiptCode);
+
+        return ResponseEntity.noContent().build();
+    }
 ```
