@@ -2,6 +2,7 @@ package com.mcdonalds.ordermachine;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+
 import com.mcdonalds.ordermachine.model.product.Product;
 import com.mcdonalds.ordermachine.model.product.ProductType;
 import com.mcdonalds.ordermachine.repository.OrderedProductRepository;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -169,11 +172,56 @@ class OrderMachineApplicationTests {
 
 	@Test
 	void shouldCreateANewProduct() {
-		Product newOrderedProduct = new Product(null, "#101", "Marek Lumberjack", 31.3, ProductType.BURGER);
+		Product newOrderedProduct = new Product(null, "101", "Marek Lumberjack", 31.3, ProductType.BURGER);
 		ResponseEntity<String> response = this.restTemplate.postForEntity("/orders", newOrderedProduct, String.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 		assertThat(this.orderedProductRepository.count()).isEqualTo(1);
+	}
+
+
+	@Test
+	void shouldUpdateProductsByNameAndType() {
+		this.orderedProductRepository.save(new Product(null, "231", "Classic Mc Fries", 5.7, ProductType.FRIES));
+		this.orderedProductRepository.save(new Product(null, "011", "Classic Mc Fries", 5.7, ProductType.FRIES));
+		this.orderedProductRepository.save(new Product(null, "231", "Classic Mc Chicken", 35.7, ProductType.NUGGETS));
+
+		//Performs an operation on database.
+		Double updatedPrice = 12.946;
+		this.restTemplate.put("/orders/name=Classic Mc Fries/type=FRIES/newPrice=" + updatedPrice.toString(), String.class);
+
+
+		ResponseEntity<String> response = this.restTemplate.getForEntity("/orders/type=FRIES", String.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+		DocumentContext documentContext = JsonPath.parse(response.getBody());
+
+		//Prices
+		JSONArray prices = documentContext.read("$..price");
+		assertThat(prices).containsExactlyInAnyOrder(updatedPrice, updatedPrice);
+	}
+
+	@Test
+	void shouldDeleteProductsByReceiptCode() {
+		this.orderedProductRepository.save(new Product(null, "003", "Cheeseburger", 7.3, ProductType.BURGER));
+		this.orderedProductRepository.save(new Product(null, "003", "Mc Wrap", 7.3, ProductType.WRAP));
+		this.orderedProductRepository.save(new Product(null, "013", "Cheeseburger", 7.3, ProductType.BURGER));
+
+		//Performs an operation on database.
+		String receiptCodeToDelete = "003";
+		ResponseEntity<String> deleteResponse =  this.restTemplate.exchange("/orders/receiptCode=" + receiptCodeToDelete, HttpMethod.DELETE, null, String.class);
+
+		assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
+
+		ResponseEntity<String> getResponse = this.restTemplate.getForEntity("/orders/receiptCode=" + receiptCodeToDelete, String.class);
+		assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+		DocumentContext documentContext = JsonPath.parse(getResponse.getBody());
+
+		//Product Count
+		int productCount = documentContext.read("$.length()");
+		assertThat(productCount).isEqualTo(0);
 	}
 
 }

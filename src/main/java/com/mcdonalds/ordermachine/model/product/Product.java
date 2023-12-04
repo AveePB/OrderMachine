@@ -111,7 +111,7 @@ public class Product {
 }
 
 /*  YOU CAN USE RECORD INSTEAD OF THE CLASS WITH ANNOTATIONS!
-    public record Product(Long id, String receiptCode, String name, Double price, ProductType type) {
+    public record Product(@Id Long id, String receiptCode, String name, Double price, ProductType type) {
 
     }
  */
