@@ -81,6 +81,10 @@ public class OrderController {
         //Accesses the resources from database.
         List<Product> requestedProducts = this.orderedProductRepository.findByNameAndType(requestedProductName, requestedProductType);
 
+        //Checks if found any resource.
+        if (requestedProducts.size() == 0)
+            return ResponseEntity.notFound().build();
+
         for (Product updatedProduct: requestedProducts) {
             //Updates & saves each requested product.
             updatedProduct.setPrice(newRequestedProductPrice);

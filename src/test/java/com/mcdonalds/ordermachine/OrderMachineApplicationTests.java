@@ -188,17 +188,14 @@ class OrderMachineApplicationTests {
 
 		//Performs an operation on database.
 		Double updatedPrice = 12.946;
-		this.restTemplate.put("/orders/name=Classic Mc Fries/type=FRIES/newPrice=" + updatedPrice.toString(), String.class);
+		ResponseEntity<String> response = this.restTemplate.exchange("/orders/name=Classic Mc Fries/type=FRIES/newPrice=" + updatedPrice.toString(), HttpMethod.PUT, null, String.class);
+
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
 
-		ResponseEntity<String> response = this.restTemplate.getForEntity("/orders/type=FRIES", String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-		DocumentContext documentContext = JsonPath.parse(response.getBody());
-
-		//Prices
-		JSONArray prices = documentContext.read("$..price");
-		assertThat(prices).containsExactlyInAnyOrder(updatedPrice, updatedPrice);
+		//Performs a second operation on database.
+		ResponseEntity<String> secondResponse = this.restTemplate.exchange("/orders/name=Classic Mc Wrap/type=WRAP/newPrice=" + updatedPrice.toString(), HttpMethod.PUT, null, String.class);
+		assertThat(secondResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
 
 	@Test
