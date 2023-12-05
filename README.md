@@ -78,10 +78,14 @@ methods, you need to tell Spring to route requests to the method only on specifi
 
 ### PUT Method <a name="put_method"></a>
 ```
-    @PutMapping("/name={requestedProductName}/type={requestedProductType}/newPrice={newRequestedProductPrice}")
+   @PutMapping("/name={requestedProductName}/type={requestedProductType}/newPrice={newRequestedProductPrice}")
     private ResponseEntity<String> updateProductsByPrice(@PathVariable String requestedProductName, @PathVariable ProductType requestedProductType, @PathVariable Double newRequestedProductPrice) {
         //Accesses the resources from database.
         List<Product> requestedProducts = this.orderedProductRepository.findByNameAndType(requestedProductName, requestedProductType);
+
+        //Checks if found any resource.
+        if (requestedProducts.size() == 0)
+            return ResponseEntity.notFound().build();
 
         for (Product updatedProduct: requestedProducts) {
             //Updates & saves each requested product.
