@@ -2,7 +2,6 @@ package com.bpeeva.ordermachine.product;
 
 import com.bpeeva.ordermachine.product.db.Product;
 import com.bpeeva.ordermachine.product.db.ProductRepository;
-import com.bpeeva.ordermachine.product.db.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

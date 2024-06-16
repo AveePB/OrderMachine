@@ -1,9 +1,12 @@
-package com.bpeeva.ordermachine.product.db;
+package com.bpeeva.ordermachine.product;
 
+import com.bpeeva.ordermachine.product.db.Product;
+import com.bpeeva.ordermachine.product.db.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -11,6 +14,12 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepo;
+
+    public List<ProductDTO> getAll() {
+        return productRepo.findAll().stream()
+                .map(p -> new ProductDTO(p.getName(), p.getPrice()))
+                .toList();
+    }
 
     public boolean add(String productName, Double productPrice) {
         Product product = new Product(null, productName, productPrice, null);
