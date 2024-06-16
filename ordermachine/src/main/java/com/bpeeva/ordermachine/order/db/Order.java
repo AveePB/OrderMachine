@@ -1,4 +1,4 @@
-package com.bpeeva.ordermachine.order;
+package com.bpeeva.ordermachine.order.db;
 
 import com.bpeeva.ordermachine.orderedproduct.OrderedProduct;
 import jakarta.persistence.*;
@@ -20,9 +20,6 @@ public class Order {
     @Id
     @GeneratedValue
     private Integer id;
-
-    @Column(nullable = false, precision = 2)
-    private Double totalPrice;
 
     @OneToMany
     private List<OrderedProduct> orderedProductList;
