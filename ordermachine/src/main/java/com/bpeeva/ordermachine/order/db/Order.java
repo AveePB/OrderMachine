@@ -1,6 +1,6 @@
 package com.bpeeva.ordermachine.order.db;
 
-import com.bpeeva.ordermachine.orderedproduct.OrderedProduct;
+import com.bpeeva.ordermachine.orderedproduct.db.OrderedProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
