@@ -1,4 +1,4 @@
-package com.bpeeva.ordermachine.orderedproduct;
+package com.bpeeva.ordermachine.orderedproduct.db;
 
 import com.bpeeva.ordermachine.product.db.Product;
 import com.bpeeva.ordermachine.order.db.Order;
